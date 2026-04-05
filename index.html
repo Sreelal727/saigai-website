@@ -193,140 +193,153 @@
 
         /* ===== CAPABILITIES ===== */
         .capabilities {
-            padding: 7rem 0;
+            padding: 6rem 0 7rem;
             background: var(--bg);
+            overflow: hidden;
         }
         .cap-top-row {
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
             gap: 2rem;
-            margin-bottom: 3.5rem;
+            margin-bottom: 3rem;
+            max-width: 1200px; margin-left: auto; margin-right: auto;
+            padding: 0 2.5rem;
         }
-        .cap-header {
-            max-width: 480px;
-        }
+        .cap-header { max-width: 480px; }
         .cap-header .section-label { color: var(--accent); }
         .cap-header h2 {
             font-family: var(--heading);
             font-size: clamp(1.7rem, 3vw, 2.3rem);
             font-weight: 400;
             color: var(--text);
+            margin-bottom: 0.5rem;
         }
-        .cap-count {
-            font-family: var(--heading);
-            font-size: clamp(4rem, 8vw, 6rem);
-            font-weight: 400;
-            line-height: 0.85;
-            color: var(--border);
+        .cap-header p {
+            font-size: 0.9rem; color: var(--text-light); line-height: 1.7;
+        }
+        .cap-scroll-hint {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--text-light);
             flex-shrink: 0;
-            letter-spacing: -0.03em;
         }
-        .cap-count span {
-            font-size: 0.3em;
-            vertical-align: super;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 0;
+        .cap-scroll-hint svg {
+            width: 20px; height: 20px;
+            stroke: var(--accent);
+            animation: scrollNudge 2s ease-in-out infinite;
+        }
+        @keyframes scrollNudge {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
         }
 
-        /* Accordion items */
-        .cap-accordion {
-            border-top: 1.5px solid var(--text);
+        /* Horizontal scroll track */
+        .cap-track-wrap {
+            position: relative;
         }
-        .cap-row {
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
+        .cap-track {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 0.5rem 2.5rem 2rem;
+            scrollbar-width: none;
         }
-        .cap-row-header {
-            display: grid;
-            grid-template-columns: 60px 1fr auto;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.4rem 0;
-            cursor: pointer;
-            transition: padding-left 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
+        .cap-track::-webkit-scrollbar { display: none; }
+
+        /* Cards */
+        .cap-card {
+            flex: 0 0 320px;
+            scroll-snap-align: start;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem 1.75rem;
+            display: flex; flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
-        .cap-row-header:hover {
-            padding-left: 0.75rem;
+        .cap-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
         }
-        .cap-row-num {
-            font-family: var(--heading);
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: var(--border);
-            font-style: italic;
-            transition: color 0.3s;
+        .cap-card-top {
+            display: flex; align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
         }
-        .cap-row.active .cap-row-num {
-            color: var(--accent);
-        }
-        .cap-row-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text);
-            transition: color 0.2s;
-        }
-        .cap-row-header:hover .cap-row-title {
-            color: var(--accent);
-        }
-        .cap-row-toggle {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            border: 1.5px solid var(--border);
+        .cap-card-icon {
+            width: 42px; height: 42px;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 0.35s, border-color 0.3s, background 0.3s;
-            flex-shrink: 0;
-        }
-        .cap-row-toggle svg {
-            width: 14px; height: 14px;
-            stroke: var(--text-light);
-            transition: stroke 0.3s;
-        }
-        .cap-row.active .cap-row-toggle {
-            transform: rotate(45deg);
-            border-color: var(--accent);
             background: var(--accent-soft);
+            border-radius: 11px;
         }
-        .cap-row.active .cap-row-toggle svg {
+        .cap-card-icon svg {
+            width: 20px; height: 20px;
             stroke: var(--accent);
         }
-        .cap-row-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s;
-            padding: 0 0 0 calc(60px + 1.5rem);
+        .cap-card-num {
+            font-family: var(--heading);
+            font-size: 2.2rem; font-weight: 400;
+            color: var(--border);
+            line-height: 1;
+            font-style: italic;
+            opacity: 0.5;
         }
-        .cap-row.active .cap-row-body {
-            max-height: 180px;
-            padding-bottom: 1.5rem;
+        .cap-card h3 {
+            font-size: 1.05rem; font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
         }
-        .cap-row-body p {
-            font-size: 0.88rem;
+        .cap-card p {
+            font-size: 0.84rem;
             color: var(--text-light);
-            line-height: 1.7;
-            max-width: 540px;
+            line-height: 1.65;
+            flex: 1;
         }
-        .cap-row-body .cap-tags {
-            display: flex; flex-wrap: wrap; gap: 0.4rem;
-            margin-top: 0.75rem;
+        .cap-tags {
+            display: flex; flex-wrap: wrap; gap: 0.35rem;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
         }
-        .cap-row-body .cap-tag {
-            font-size: 0.7rem; font-weight: 600;
-            padding: 0.25rem 0.65rem;
+        .cap-tag {
+            font-size: 0.68rem; font-weight: 600;
+            padding: 0.25rem 0.6rem;
             background: var(--accent-soft);
             color: var(--accent);
             border-radius: 4px;
         }
 
+        /* Progress bar */
+        .cap-progress {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+        .cap-progress-track {
+            height: 2px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .cap-progress-bar {
+            height: 100%;
+            width: 14%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.15s;
+        }
+
         @media (max-width: 640px) {
-            .cap-top-row { flex-direction: column; align-items: flex-start; }
-            .cap-count { display: none; }
-            .cap-row-header { grid-template-columns: 36px 1fr auto; gap: 1rem; }
-            .cap-row-num { font-size: 1.2rem; }
-            .cap-row-body { padding-left: calc(36px + 1rem); }
+            .cap-top-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .cap-scroll-hint { display: none; }
+            .cap-card { flex: 0 0 280px; }
+            .cap-track { padding: 0.5rem 1.5rem 2rem; gap: 1rem; }
+            .cap-progress { padding: 0 1.5rem; }
         }
 
         /* ===== IMPACT METRICS ===== */
@@ -706,92 +719,87 @@
 
 <!-- Services / Capabilities -->
 <section class="capabilities" id="services">
-    <div class="section-wrap">
-        <div class="cap-top-row reveal">
-            <div class="cap-header">
-                <div class="section-label">What We Build</div>
-                <h2>Seven pillars. One integrated team.</h2>
-            </div>
-            <div class="cap-count">07<span>services</span></div>
+    <div class="cap-top-row reveal">
+        <div class="cap-header">
+            <div class="section-label">What We Build</div>
+            <h2>Seven pillars. One integrated team.</h2>
+            <p>Strategy, software, and data — connected end-to-end so your systems compound.</p>
         </div>
-        <div class="cap-accordion">
-            <div class="cap-row active reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">01</span>
-                    <span class="cap-row-title">ERP Solutions</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="cap-scroll-hint">
+            Scroll
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </div>
+    </div>
+    <div class="cap-track-wrap">
+        <div class="cap-track" id="capTrack">
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+                    <span class="cap-card-num">01</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Custom enterprise platforms that unify inventory, finance, HR, and procurement — built around how your org actually operates.</p>
-                    <div class="cap-tags"><span class="cap-tag">TypeScript</span><span class="cap-tag">Next.js</span><span class="cap-tag">PostgreSQL</span></div>
-                </div>
+                <h3>ERP Solutions</h3>
+                <p>Custom enterprise platforms that unify inventory, finance, HR, and procurement — built around how your org actually operates.</p>
+                <div class="cap-tags"><span class="cap-tag">TypeScript</span><span class="cap-tag">Next.js</span><span class="cap-tag">PostgreSQL</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">02</span>
-                    <span class="cap-row-title">CRM & Lead Intelligence</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                    <span class="cap-card-num">02</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Customer platforms with AI-powered lead scoring, geo-targeted prospecting, and outreach automation that fills your pipeline.</p>
-                    <div class="cap-tags"><span class="cap-tag">Maps API</span><span class="cap-tag">Lead Scoring</span><span class="cap-tag">Automation</span></div>
-                </div>
+                <h3>CRM & Lead Intelligence</h3>
+                <p>Customer platforms with AI-powered lead scoring, geo-targeted prospecting, and outreach automation that fills your pipeline.</p>
+                <div class="cap-tags"><span class="cap-tag">Maps API</span><span class="cap-tag">Lead Scoring</span><span class="cap-tag">Automation</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">03</span>
-                    <span class="cap-row-title">Data-Driven Insights</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                    <span class="cap-card-num">03</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Analytics pipelines, real-time dashboards, and predictive models that move you from raw data to clear decisions.</p>
-                    <div class="cap-tags"><span class="cap-tag">Python</span><span class="cap-tag">Dashboards</span><span class="cap-tag">ML Models</span></div>
-                </div>
+                <h3>Data-Driven Insights</h3>
+                <p>Analytics pipelines, real-time dashboards, and predictive models that move you from raw data to clear decisions.</p>
+                <div class="cap-tags"><span class="cap-tag">Python</span><span class="cap-tag">Dashboards</span><span class="cap-tag">ML Models</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">04</span>
-                    <span class="cap-row-title">Electoral Intelligence</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+                    <span class="cap-card-num">04</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Voter sentiment mapping, constituency profiling, and real-time campaign analytics for political strategists running real campaigns.</p>
-                    <div class="cap-tags"><span class="cap-tag">Sentiment Analysis</span><span class="cap-tag">GIS</span><span class="cap-tag">Real-time</span></div>
-                </div>
+                <h3>Electoral Intelligence</h3>
+                <p>Voter sentiment mapping, constituency profiling, and real-time campaign analytics for political strategists.</p>
+                <div class="cap-tags"><span class="cap-tag">Sentiment</span><span class="cap-tag">GIS</span><span class="cap-tag">Real-time</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">05</span>
-                    <span class="cap-row-title">Strategy Consulting</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                    <span class="cap-card-num">05</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Market entry, digital transformation, and competitive positioning — technology-backed plans built for leadership teams.</p>
-                    <div class="cap-tags"><span class="cap-tag">Market Research</span><span class="cap-tag">Roadmapping</span><span class="cap-tag">GTM</span></div>
-                </div>
+                <h3>Strategy Consulting</h3>
+                <p>Market entry, digital transformation, and competitive positioning — technology-backed plans for leadership teams.</p>
+                <div class="cap-tags"><span class="cap-tag">Market Research</span><span class="cap-tag">Roadmapping</span><span class="cap-tag">GTM</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">06</span>
-                    <span class="cap-row-title">AI & Automation</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><path d="M12 18v4"/><path d="M8 22h8"/><path d="M7 12h10"/><path d="M5 16h14"/></svg></div>
+                    <span class="cap-card-num">06</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>RAG systems, AI agents, legal assistants, document processors — intelligence wired into your existing workflows.</p>
-                    <div class="cap-tags"><span class="cap-tag">LangChain</span><span class="cap-tag">RAG</span><span class="cap-tag">LLM Agents</span></div>
-                </div>
+                <h3>AI & Automation</h3>
+                <p>RAG systems, AI agents, legal assistants, document processors — intelligence wired into your existing workflows.</p>
+                <div class="cap-tags"><span class="cap-tag">LangChain</span><span class="cap-tag">RAG</span><span class="cap-tag">LLM Agents</span></div>
             </div>
-            <div class="cap-row reveal">
-                <div class="cap-row-header">
-                    <span class="cap-row-num">07</span>
-                    <span class="cap-row-title">Product Development</span>
-                    <div class="cap-row-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="cap-card">
+                <div class="cap-card-top">
+                    <div class="cap-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+                    <span class="cap-card-num">07</span>
                 </div>
-                <div class="cap-row-body">
-                    <p>Full-stack web and mobile apps — Next.js, React, Flutter. From SaaS platforms to browser extensions and internal tools.</p>
-                    <div class="cap-tags"><span class="cap-tag">Next.js</span><span class="cap-tag">React</span><span class="cap-tag">Flutter</span></div>
-                </div>
+                <h3>Product Development</h3>
+                <p>Full-stack web and mobile apps — Next.js, React, Flutter. From SaaS platforms to browser extensions and internal tools.</p>
+                <div class="cap-tags"><span class="cap-tag">Next.js</span><span class="cap-tag">React</span><span class="cap-tag">Flutter</span></div>
             </div>
+        </div>
+    </div>
+    <div class="cap-progress">
+        <div class="cap-progress-track">
+            <div class="cap-progress-bar" id="capProgressBar"></div>
         </div>
     </div>
 </section>
@@ -1083,15 +1091,15 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Accordion toggle
-    document.querySelectorAll('.cap-row-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const row = header.parentElement;
-            const wasActive = row.classList.contains('active');
-            document.querySelectorAll('.cap-row.active').forEach(r => r.classList.remove('active'));
-            if (!wasActive) row.classList.add('active');
+    // Scroll progress for capabilities
+    const capTrack = document.getElementById('capTrack');
+    const capBar = document.getElementById('capProgressBar');
+    if (capTrack && capBar) {
+        capTrack.addEventListener('scroll', () => {
+            const pct = capTrack.scrollLeft / (capTrack.scrollWidth - capTrack.clientWidth);
+            capBar.style.width = Math.max(14, pct * 100) + '%';
         });
-    });
+    }
 </script>
 
 </body>
