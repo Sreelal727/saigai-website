@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saigai — Intelligence. Strategy. Growth.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf8f5;
+            --bg-warm: #f3efe8;
+            --bg-dark: #1a1a1a;
+            --surface: #fff;
+            --text: #1a1a1a;
+            --text-mid: #4a4a4a;
+            --text-light: #7a7a7a;
+            --accent: #e89b1c;
+            --accent-hover: #d08a12;
+            --accent-soft: rgba(232, 155, 28, 0.1);
+            --border: #e5e0d8;
+            --heading: 'Playfair Display', Georgia, serif;
+            --body: 'Inter', -apple-system, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: box-shadow 0.3s;
+        }
+        nav.scrolled { box-shadow: 0 1px 0 var(--border); }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 1rem 2.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: var(--heading);
+            font-size: 1.6rem; font-weight: 700;
+            color: var(--text); text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent); }
+        .nav-links {
+            display: flex; align-items: center;
+            gap: 2.5rem; list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-mid); text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.65rem 1.5rem;
+            background: var(--accent); color: #fff;
+            border: none; border-radius: 50px;
+            font-family: var(--body);
+            font-size: 0.88rem; font-weight: 600;
+            cursor: pointer; text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .nav-cta-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .hamburger {
+            display: none; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: var(--text);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 11rem 2rem 5rem;
+            max-width: 900px; margin: 0 auto;
+        }
+        .hero h1 {
+            font-family: var(--heading);
+            font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+            font-weight: 400;
+            line-height: 1.18;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex; gap: 1rem;
+            justify-content: center; align-items: center;
+            flex-wrap: wrap;
+        }
+        .btn-accent {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: var(--accent); color: #fff;
+            border: none; border-radius: 50px;
+            font-family: var(--body);
+            font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .btn-accent svg { width: 16px; height: 16px; }
+        .btn-outline {
+            display: inline-flex; align-items: center;
+            padding: 0.85rem 2rem;
+            background: transparent; color: var(--text);
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-family: var(--body);
+            font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .btn-outline:hover { border-color: var(--text-mid); background: rgba(0,0,0,0.02); }
+
+        /* ===== MARQUEE ===== */
+        .marquee-section {
+            padding: 3rem 0;
+            background: var(--bg-warm);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .marquee-label {
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item {
+            flex-shrink: 0;
+            padding: 0 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            white-space: nowrap;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .marquee-item:hover { opacity: 1; }
+        .marquee-item.serif { font-family: var(--heading); font-style: italic; font-size: 1.25rem; }
+        .marquee-item.bold { font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.95rem; }
+        .marquee-item.wide { letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.85rem; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section-wrap {
+            max-width: 1200px; margin: 0 auto; padding: 0 2.5rem;
+        }
+        .section-label {
+            font-size: 0.72rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--accent); margin-bottom: 1rem;
+        }
+
+        /* ===== PILLARS (Hub & Spoke) ===== */
+        .pillars {
+            padding: 6rem 0;
+            background: #1c1408;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .pillars::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(232,155,28,0.04) 0%, transparent 70%);
+        }
+        .pillars .section-wrap { position: relative; z-index: 1; }
+        .pillars-header {
+            text-align: center; max-width: 700px;
+            margin: 0 auto 3.5rem;
+        }
+        .pillars-header .label-line {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.75rem; margin-bottom: 1.25rem;
+        }
+        .pillars-header .label-line span.line {
+            display: block; width: 40px; height: 1px;
+            background: rgba(232,155,28,0.5);
+        }
+        .pillars-header .label-line span.tag {
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.18em;
+            color: var(--accent);
+        }
+        .pillars-header h2 {
+            font-family: var(--heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+        .pillars-header p {
+            color: rgba(255,255,255,0.45);
+            font-size: 1rem; line-height: 1.7;
+        }
+
+        /* Hub diagram */
+        .hub-diagram {
+            display: flex; justify-content: center;
+            margin-bottom: 3rem;
+        }
+        .hub-diagram svg {
+            width: 100%; max-width: 880px; height: auto;
+        }
+        .hub-diagram text { font-family: var(--body); }
+        .hub-diagram .node-num {
+            font-size: 11px; font-weight: 800;
+            letter-spacing: 0.15em;
+        }
+        .hub-diagram .node-title {
+            font-size: 13.5px; font-weight: 600;
+        }
+        .hub-diagram .node-desc {
+            font-size: 11px; font-weight: 400;
+        }
+        .hub-diagram .center-label {
+            font-size: 13px; font-weight: 800;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        /* Mobile fallback grid */
+        .pillars-mobile {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem; margin-bottom: 2.5rem;
+        }
+        .pm-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .pm-card .pm-num {
+            font-size: 0.68rem; font-weight: 800;
+            color: var(--accent); letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        .pm-card h3 {
+            font-size: 0.92rem; font-weight: 600;
+            margin-bottom: 0.35rem; color: #fff;
+        }
+        .pm-card p {
+            font-size: 0.78rem; color: rgba(255,255,255,0.4);
+            line-height: 1.55;
+        }
+
+        /* Outcomes row */
+        .pillars-outcomes {
+            display: flex; justify-content: center;
+            gap: 2rem; flex-wrap: wrap;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .pillars-outcomes .outcome-tag {
+            font-size: 0.82rem; font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .pillars-outcomes .outcome-tag::before {
+            content: ''; display: block;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent);
+        }
+
+        @media (max-width: 900px) {
+            .hub-diagram { display: none; }
+            .pillars-mobile { display: grid; }
+        }
+        @media (max-width: 500px) {
+            .pillars-mobile { grid-template-columns: 1fr; }
+        }
+
+        /* ===== IMPACT METRICS ===== */
+        .impact {
+            padding: 7rem 0;
+            background: var(--bg-warm);
+        }
+        .impact-header {
+            text-align: center; max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+        .impact-header h2 {
+            font-family: var(--heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 400; margin-bottom: 1rem;
+        }
+        .impact-header p {
+            color: var(--text-light); font-size: 1rem; line-height: 1.7;
+        }
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+        .impact-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: flex; flex-direction: column;
+        }
+        .impact-card.wide { grid-column: 1 / -1; }
+        .impact-stat {
+            font-family: var(--heading);
+            font-size: 2.5rem; font-weight: 600;
+            color: var(--accent);
+            line-height: 1; margin-bottom: 0.5rem;
+        }
+        .impact-card h3 {
+            font-size: 1.05rem; font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .impact-card p {
+            font-size: 0.88rem; color: var(--text-light);
+            line-height: 1.65;
+        }
+        .impact-card ul {
+            list-style: none; margin-top: 0.75rem;
+        }
+        .impact-card ul li {
+            font-size: 0.88rem; color: var(--text-light);
+            line-height: 1.65; padding-left: 1.25rem;
+            position: relative; margin-bottom: 0.35rem;
+        }
+        .impact-card ul li::before {
+            content: ''; position: absolute;
+            left: 0; top: 0.55rem;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* ===== WORK / PORTFOLIO ===== */
+        .work {
+            padding: 7rem 0;
+        }
+        .work-header {
+            text-align: center; max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+        .work-header h2 {
+            font-family: var(--heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 400; margin-bottom: 1rem;
+        }
+        .work-header p {
+            color: var(--text-light); font-size: 1rem;
+        }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .work-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .work-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+        .work-card.featured {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+        }
+        .work-thumb {
+            height: 160px;
+            background: var(--bg-warm);
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .work-card.featured .work-thumb { height: 280px; }
+        .work-thumb-label {
+            font-family: var(--heading);
+            font-size: 1.8rem; font-weight: 500;
+            color: var(--text-light); opacity: 0.4;
+        }
+        .work-card.featured .work-thumb-label { font-size: 2.5rem; }
+        .work-category {
+            display: inline-block;
+            position: absolute; top: 1rem; left: 1rem;
+            font-size: 0.68rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 0.7rem; border-radius: 4px;
+            color: var(--text-mid);
+        }
+        .work-body { padding: 1.5rem; }
+        .work-card.featured .work-body { padding: 2rem; }
+        .work-body h3 {
+            font-family: var(--heading);
+            font-size: 1.1rem; font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .work-card.featured .work-body h3 { font-size: 1.3rem; }
+        .work-body p {
+            font-size: 0.85rem; color: var(--text-light);
+            line-height: 1.65; margin-bottom: 1rem;
+        }
+        .work-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .work-tag {
+            font-size: 0.7rem; font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* ===== APPROACH ===== */
+        .approach {
+            padding: 7rem 0;
+            background: var(--bg-dark);
+            color: #fff;
+        }
+        .approach .section-wrap { max-width: 1200px; }
+        .approach-header {
+            text-align: center; max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+        .approach-header .section-label { color: var(--accent); }
+        .approach-header h2 {
+            font-family: var(--heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 400; margin-bottom: 1rem;
+            color: #fff;
+        }
+        .approach-header p {
+            color: rgba(255,255,255,0.5); font-size: 1rem; line-height: 1.7;
+        }
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .approach-step {}
+        .approach-num {
+            font-family: var(--heading);
+            font-size: 3rem; font-weight: 500;
+            color: var(--accent);
+            line-height: 1; margin-bottom: 1rem;
+        }
+        .approach-step h3 {
+            font-size: 1rem; font-weight: 600;
+            margin-bottom: 0.6rem; color: #fff;
+        }
+        .approach-step p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.65;
+        }
+
+        /* ===== TECH ===== */
+        .tech {
+            padding: 5rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .tech-inner {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .tech h2 {
+            font-family: var(--heading);
+            font-size: 1.6rem; font-weight: 400;
+            flex-shrink: 0;
+        }
+        .tech-list {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+            max-width: 700px;
+        }
+        .tech-item {
+            font-size: 0.82rem; font-weight: 500;
+            padding: 0.45rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-mid);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .tech-item:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 7rem 0;
+            text-align: center;
+        }
+        .cta-box {
+            max-width: 700px; margin: 0 auto;
+        }
+        .cta h2 {
+            font-family: var(--heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 400; margin-bottom: 1rem;
+        }
+        .cta p {
+            color: var(--text-light); font-size: 1.05rem;
+            margin-bottom: 2.5rem; line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 4rem 0 2.5rem;
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.6);
+        }
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        .footer-brand {
+            font-family: var(--heading);
+            font-size: 1.4rem; font-weight: 700;
+            color: #fff; margin-bottom: 1rem;
+        }
+        .footer-brand span { color: var(--accent); }
+        .footer-desc {
+            font-size: 0.85rem; line-height: 1.65;
+            color: rgba(255,255,255,0.4);
+            max-width: 280px;
+        }
+        .footer-col h4 {
+            font-size: 0.78rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 1rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col ul a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none; font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .footer-col ul a:hover { color: #fff; }
+        .footer-bottom {
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 1rem;
+        }
+        .footer-bottom p {
+            font-size: 0.78rem; color: rgba(255,255,255,0.3);
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .work-grid { grid-template-columns: 1fr; }
+            .work-card.featured { grid-column: auto; grid-row: auto; }
+            .work-card.featured .work-thumb { height: 200px; }
+            .approach-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .impact-grid { grid-template-columns: 1fr; }
+            .impact-card.wide { grid-column: auto; }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--bg); border-bottom: 1px solid var(--border);
+                padding: 1.5rem 2rem; gap: 1rem;
+            }
+            .hero { padding: 9rem 1.5rem 4rem; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .approach-grid { grid-template-columns: 1fr; }
+            .section-wrap { padding: 0 1.5rem; }
+            .tech-inner { flex-direction: column; }
+            .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="nav">
+    <div class="nav-inner">
+        <a href="#" class="logo">Saigai<span>.</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#contact" class="nav-cta-btn">Talk to us <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>The <em>Intelligence</em> Layer for Growing Businesses.</h1>
+    <p class="subtitle">From enterprise systems to electoral analytics — Saigai builds the data infrastructure that turns complexity into clarity.</p>
+    <div class="hero-buttons">
+        <a href="#contact" class="btn-accent">
+            Talk to us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="btn-outline">Learn More</a>
+    </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+    <div class="marquee-label">Trusted Across Industries</div>
+    <div class="marquee-track">
+        <span class="marquee-item bold">Architecture</span>
+        <span class="marquee-item serif">Legal Tech</span>
+        <span class="marquee-item wide">Real Estate</span>
+        <span class="marquee-item">Sales & Marketing</span>
+        <span class="marquee-item bold">Politics</span>
+        <span class="marquee-item serif">Education</span>
+        <span class="marquee-item wide">Hospitality</span>
+        <span class="marquee-item">Analytics</span>
+        <span class="marquee-item bold">Sports Tech</span>
+        <span class="marquee-item serif">Developer Tools</span>
+        <span class="marquee-item wide">Healthcare</span>
+        <span class="marquee-item">Retail</span>
+        <!-- duplicate for seamless loop -->
+        <span class="marquee-item bold">Architecture</span>
+        <span class="marquee-item serif">Legal Tech</span>
+        <span class="marquee-item wide">Real Estate</span>
+        <span class="marquee-item">Sales & Marketing</span>
+        <span class="marquee-item bold">Politics</span>
+        <span class="marquee-item serif">Education</span>
+        <span class="marquee-item wide">Hospitality</span>
+        <span class="marquee-item">Analytics</span>
+        <span class="marquee-item bold">Sports Tech</span>
+        <span class="marquee-item serif">Developer Tools</span>
+        <span class="marquee-item wide">Healthcare</span>
+        <span class="marquee-item">Retail</span>
+    </div>
+</div>
+
+<!-- Services / Pillars -->
+<section class="pillars" id="services">
+    <div class="section-wrap">
+        <div class="pillars-header reveal">
+            <div class="section-label">Our Core Capabilities</div>
+            <h2>One team. Seven pillars of expertise.</h2>
+            <p>Saigai connects strategy, software, and data to deliver systems that don't just work — they compound.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+                </div>
+                <h3>ERP Solutions</h3>
+                <p>Custom enterprise platforms that unify inventory, finance, HR, and procurement — built around how your org actually operates.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>CRM & Lead Intelligence</h3>
+                <p>Customer platforms with AI-powered lead scoring, geo-targeted prospecting, and outreach automation that fills your pipeline.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <h3>Data-Driven Insights</h3>
+                <p>Analytics pipelines, real-time dashboards, and predictive models that move you from raw data to clear decisions.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+                </div>
+                <h3>Electoral Intelligence</h3>
+                <p>Voter sentiment mapping, constituency profiling, and real-time campaign analytics for political strategists running real campaigns.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <h3>Strategy Consulting</h3>
+                <p>Market entry, digital transformation, and competitive positioning — technology-backed plans built for leadership teams.</p>
+            </div>
+            <div class="pillar-card reveal">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><path d="M12 18v4"/><path d="M8 22h8"/><path d="M7 12h10"/><path d="M5 16h14"/></svg>
+                </div>
+                <h3>AI & Automation</h3>
+                <p>RAG systems, AI agents, legal assistants, document processors — intelligence wired into your existing workflows.</p>
+            </div>
+            <div class="pillar-card reveal" style="grid-column: 2 / 3;">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                </div>
+                <h3>Product Development</h3>
+                <p>Full-stack web and mobile apps — Next.js, React, Flutter. From SaaS platforms to browser extensions and internal tools.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Metrics -->
+<section class="impact" id="impact">
+    <div class="section-wrap">
+        <div class="impact-header reveal">
+            <div class="section-label">The Saigai Advantage</div>
+            <h2>Measurable impact. By design.</h2>
+            <p>Real outcomes from real engagements — not hypothetical case studies.</p>
+        </div>
+        <div class="impact-grid">
+            <div class="impact-card reveal">
+                <div class="impact-stat">30+</div>
+                <h3>Projects Shipped</h3>
+                <p>Across ERP, legal tech, analytics, sales tools, and political campaigns.</p>
+                <ul>
+                    <li>Enterprise platforms to Chrome extensions</li>
+                    <li>AI-powered systems to mobile applications</li>
+                </ul>
+            </div>
+            <div class="impact-card reveal">
+                <div class="impact-stat">3x</div>
+                <h3>Faster Lead Discovery</h3>
+                <p>Our geo-targeted prospecting tools cut manual research time by 70% for sales teams.</p>
+                <ul>
+                    <li>Automated Google Maps lead extraction</li>
+                    <li>Qualified pipeline from day one</li>
+                </ul>
+            </div>
+            <div class="impact-card reveal">
+                <div class="impact-stat">Daily</div>
+                <h3>AI Adoption by End Users</h3>
+                <p>Our legal AI assistant is used every day by practicing lawyers — not sitting on a shelf.</p>
+                <ul>
+                    <li>WhatsApp-style interface lawyers already know</li>
+                    <li>Case law search via RAG in seconds</li>
+                </ul>
+            </div>
+            <div class="impact-card reveal">
+                <div class="impact-stat">Week 1</div>
+                <h3>Working Software</h3>
+                <p>We ship working demos in the first week, not the first quarter. Tight feedback, cheap course corrections.</p>
+                <ul>
+                    <li>Weekly sprint demos with live software</li>
+                    <li>Post-launch support and optimisation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work / Portfolio -->
+<section class="work" id="work">
+    <div class="section-wrap">
+        <div class="work-header reveal">
+            <div class="section-label">Selected Work</div>
+            <h2>Projects that speak for themselves.</h2>
+            <p>A handful of recent builds across industries.</p>
+        </div>
+        <div class="work-grid">
+            <div class="work-card featured reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Enterprise Software</span>
+                    <span class="work-thumb-label">Greencon ERP</span>
+                </div>
+                <div class="work-body">
+                    <h3>Greencon ERP</h3>
+                    <p>End-to-end resource planning system for an architecture firm. Handles project tracking, invoicing, resource allocation, and a client portal. Replaced three separate tools they were duct-taping together.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">TypeScript</span>
+                        <span class="work-tag">Next.js</span>
+                        <span class="work-tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Legal Tech</span>
+                    <span class="work-thumb-label">LegalDesk</span>
+                </div>
+                <div class="work-body">
+                    <h3>LegalDesk AI</h3>
+                    <p>AI legal assistant for Kerala law firms with RAG-powered case law search and document analysis.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">LLM / RAG</span>
+                        <span class="work-tag">SQLite</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Sales Tooling</span>
+                    <span class="work-thumb-label">LeadLocator</span>
+                </div>
+                <div class="work-body">
+                    <h3>Lead Locator Pro</h3>
+                    <p>Chrome extension for geo-targeted lead discovery via Google Maps for sales teams.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">Chrome APIs</span>
+                        <span class="work-tag">Maps</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Analytics</span>
+                    <span class="work-thumb-label">BeatSERP</span>
+                </div>
+                <div class="work-body">
+                    <h3>BeatSERP Analytics</h3>
+                    <p>Competitive analysis and search performance platform with real-time dashboards.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">Analytics</span>
+                        <span class="work-tag">TypeScript</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Dev Tools</span>
+                    <span class="work-thumb-label">BugShot</span>
+                </div>
+                <div class="work-body">
+                    <h3>BugShot</h3>
+                    <p>Screenshot-to-bug-report tool with AI diagnostics that saves QA teams hours.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">AI Agent</span>
+                        <span class="work-tag">Chrome Ext</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-card reveal">
+                <div class="work-thumb">
+                    <span class="work-category">Sports / ML</span>
+                    <span class="work-thumb-label">T20</span>
+                </div>
+                <div class="work-body">
+                    <h3>T20 Predictor</h3>
+                    <p>ML-powered cricket match outcome predictor with live data and probabilistic models.</p>
+                    <div class="work-tags">
+                        <span class="work-tag">ML</span>
+                        <span class="work-tag">TypeScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Approach -->
+<section class="approach" id="approach">
+    <div class="section-wrap">
+        <div class="approach-header reveal">
+            <div class="section-label">How We Work</div>
+            <h2>From conversation to production.</h2>
+            <p>A tight process that keeps scope honest and ships real software fast.</p>
+        </div>
+        <div class="approach-grid">
+            <div class="approach-step reveal">
+                <div class="approach-num">1</div>
+                <h3>Listen</h3>
+                <p>We understand your actual problem through deep technical conversations — not templated discovery calls.</p>
+            </div>
+            <div class="approach-step reveal">
+                <div class="approach-num">2</div>
+                <h3>Architect</h3>
+                <p>Right stack, clear boundaries, phased roadmap. You know what you're getting before a line of code is written.</p>
+            </div>
+            <div class="approach-step reveal">
+                <div class="approach-num">3</div>
+                <h3>Ship Weekly</h3>
+                <p>Working software every week. See real progress early, give feedback often, course-correct before things get expensive.</p>
+            </div>
+            <div class="approach-step reveal">
+                <div class="approach-num">4</div>
+                <h3>Stay On</h3>
+                <p>We don't disappear after launch. Monitoring, iteration, training — we stick around until it runs without us.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech -->
+<section class="tech">
+    <div class="section-wrap">
+        <div class="tech-inner">
+            <h2>Our toolkit</h2>
+            <div class="tech-list">
+                <span class="tech-item">TypeScript</span>
+                <span class="tech-item">Next.js</span>
+                <span class="tech-item">React</span>
+                <span class="tech-item">Node.js</span>
+                <span class="tech-item">Python</span>
+                <span class="tech-item">Flutter</span>
+                <span class="tech-item">PostgreSQL</span>
+                <span class="tech-item">SQLite</span>
+                <span class="tech-item">Firebase</span>
+                <span class="tech-item">Tailwind</span>
+                <span class="tech-item">LangChain</span>
+                <span class="tech-item">RAG Pipelines</span>
+                <span class="tech-item">Chrome Extensions</span>
+                <span class="tech-item">AWS</span>
+                <span class="tech-item">Docker</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+    <div class="section-wrap">
+        <div class="cta-box reveal">
+            <div class="section-label">Get Started</div>
+            <h2>Ready to build something that matters?</h2>
+            <p>Tell us about your challenge. We'll walk you through how we'd solve it.</p>
+            <a href="mailto:hello@saigai.io" class="btn-accent">
+                Talk to us
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="section-wrap">
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">Saigai<span>.</span></div>
+                <p class="footer-desc">Technology and strategy studio building the intelligence layer for businesses that need real answers.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">ERP Solutions</a></li>
+                    <li><a href="#services">CRM & Leads</a></li>
+                    <li><a href="#services">Data Insights</a></li>
+                    <li><a href="#services">Electoral Intelligence</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#approach">Approach</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="mailto:hello@saigai.io">hello@saigai.io</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Saigai Technologies. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
